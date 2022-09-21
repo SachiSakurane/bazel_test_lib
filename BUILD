@@ -1,13 +1,40 @@
 load("@build_bazel_rules_apple//apple:apple.bzl", "apple_xcframework")
+load("@rules_foreign_cc//foreign_cc:defs.bzl", "cmake")
 
 package(
     default_visibility = ["//visibility:public"],
+)
+
+cmake(
+    name = "sockpp",
+    lib_source = "@sockpp-git//:all_srcs",
+    cache_entries = {
+        "SOCKPP_BUILD_SHARED": "OFF",
+        "SOCKPP_BUILD_STATIC": "ON",
+    },
+    out_static_libs = ["libsockpp.a"],
+)
+
+cc_library(
+    name = "oscpp",
+    hdrs = ["@oscpp-git//:all_srcs"],
 )
 
 cc_library(
     name = "cpp_core_lib",
     srcs = ["//src:helloworld.cpp"],
     hdrs = ["//src:helloworld.h"],
+    alwayslink = 1,
+)
+
+cc_library(
+    name = "socket_test",
+    srcs = ["//src:socket_test.cpp"],
+    hdrs = ["//src:socket_test.h"],
+    deps = [
+        "//:sockpp", 
+        "//:oscpp",
+    ],
     alwayslink = 1,
 )
 

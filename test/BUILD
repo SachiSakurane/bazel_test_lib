@@ -13,6 +13,13 @@ cc_binary(
     linkstatic = True,
 )
 
+cc_binary(
+    name = "sock-test",
+    deps = ["//:socket_test"],
+    srcs = ["socket_test_main.cpp"],
+    linkstatic = True,
+)
+
 swift_binary(
     name = "swift-test",
     srcs = ["main.swift"],
