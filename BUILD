@@ -18,6 +18,9 @@ cmake(
 cc_library(
     name = "oscpp",
     hdrs = ["@oscpp-git//:all_srcs"],
+    includes = ["include"],
+    strip_include_prefix = "include",
+    linkstatic = True,
 )
 
 cc_library(

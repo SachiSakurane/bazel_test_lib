@@ -37,7 +37,14 @@ new_git_repository(
     name = "oscpp-git",
     remote = "https://github.com/kaoskorobase/oscpp",
     commit = "805365c3b7b7a5c819866040ab434f011dfcfbf9",
-    build_file_content = _ALL_CONTENT,
+    shallow_since = "1644754694 +0100",
+    build_file_content = """\
+filegroup(
+    name = "all_srcs",
+    srcs = glob(["**/*.hpp"]),
+    visibility = ["//visibility:public"],
+)
+""",
 )
 
 # Apple 
